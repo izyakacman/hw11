@@ -5,7 +5,7 @@
 #include <vector>
 #include <mutex>
 
-#include "map.hpp"
+#include "map_reduce.hpp"
 
 using namespace std;
 
@@ -22,15 +22,19 @@ int main(int argc, char* argv[])
 	string file_name = argv[1];
 
 	ifstream ifs(file_name, std::ifstream::ate | std::ifstream::binary);
+
+	if (!ifs) return -1;
+
 	size_t file_size = ifs.tellg();
 
 	cout << "file size = " << file_size << endl;
 	ifs.seekg(0);
 
-	vector<thread> threads;
+	//vector<thread> threads;
 	size_t block_size = file_size / mnum;
 	size_t begin = 0;
-	mutex mt;
+	//mutex mt;
+	vector<pair<size_t, size_t>> ranges;
 
 	for (int i = 0; i < mnum; ++i)
 	{
@@ -39,12 +43,21 @@ int main(int argc, char* argv[])
 		ifs >> line;
 		size_t end = ifs.tellg();
 
-		threads.push_back( thread(MapThread, ref(file_name), begin, end, ref(mt)) );
+		ranges.push_back({begin, end});
+
+		//threads.push_back( thread(MapThread, ref(file_name), begin, end, ref(mt)) );
 		begin = end+1;
 	}
 
-	for (auto& thr : threads)
-		thr.join();
+	MapReduce(file_name, ranges, [](string s, size_t count) 
+		{
+			return s.substr(0, count);
+		}, 1);
+
+
+
+	//for (auto& thr : threads)
+	//	thr.join();
 
 	return 0;
 }
