@@ -5,41 +5,34 @@
 #include <thread>
 #include <mutex>
 #include <algorithm>
+#include <future>
 
-void MapThread(const std::string& file_name, size_t begin, size_t end, std::mutex& /*mt*/, MapFunc& func,
-	size_t prefix_count, std::shared_ptr<std::vector<std::string>>& output)
+using MrVector = std::shared_ptr<std::vector<std::string>>;
+
+void MapThread(const std::string& file_name, size_t begin, size_t end, MapFunc& func, size_t prefix_count, MrVector& output)
 {
-	//std::lock_guard<std::mutex> lock(mt); // !!!!!!!!!!!!!!!!
-	std::cout << "thread begin\n";
-	std::cout << "begin: " << begin << " end: " << end << std::endl;
-
 	std::ifstream ifs(file_name);
 
 	ifs.seekg(begin);
 
-	size_t size = 0;
-
 	std::string line;
 
-	while (ifs && ifs.tellg() < std::streamoff(end))
+	while (ifs.tellg() < std::streamoff(end))
 	{
 		ifs >> line;
-		//std::cout << line << std::endl;
 		output->push_back(func(line, prefix_count));
-		size += line.size();
+		if (ifs.tellg() == -1) break;
 	}
 
 	std::sort(output->begin(), output->end());
-
-	std::cout << "thread end\n";
 }
 
-void ReduceThread(std::shared_ptr<std::vector<std::string>>& input, ReduceFunc& func)
+bool ReduceThread(MrVector& input, ReduceFunc& func)
 {
-	std::cout << "Reduce result " << func(*input) << std::endl;
+	return func(*input);
 }
 
-bool AllMapBuffersIsEmpty( const std::vector<std::shared_ptr<std::vector<std::string>>>& map_output )
+bool AllMapBuffersIsEmpty( const std::vector<MrVector>& map_output )
 {
 	for( const auto& ptr : map_output )
 	{
@@ -49,8 +42,7 @@ bool AllMapBuffersIsEmpty( const std::vector<std::shared_ptr<std::vector<std::st
 	return true;
 }
 
-void CopyAllDuplicates(const std::string duplicate, std::shared_ptr<std::vector<std::string>> reduce_input,
-	std::vector<std::shared_ptr<std::vector<std::string>>>& map_output)
+void CopyAllDuplicates(const std::string duplicate, MrVector reduce_input, std::vector<MrVector>& map_output)
 {
 	for( auto const& ptr : map_output )
 	{
@@ -66,8 +58,7 @@ void CopyAllDuplicates(const std::string duplicate, std::shared_ptr<std::vector<
 	}
 }
 
-void Shuffle(std::vector<std::shared_ptr<std::vector<std::string>>>& map_output,
-	std::vector<std::shared_ptr<std::vector<std::string>>>& reduce_input)
+void Shuffle(std::vector<MrVector>& map_output,	std::vector<MrVector>& reduce_input)
 {
 	for( size_t i = 0, j = 0;; ++i, ++j )
 	{
@@ -76,17 +67,8 @@ void Shuffle(std::vector<std::shared_ptr<std::vector<std::string>>>& map_output,
 
 		if(AllMapBuffersIsEmpty(map_output)) break;
 
-		CopyAllDuplicates(map_output[i]->front(), reduce_input[j], map_output );
-/*
-		std::cout << "REDUCE\n";
-
-		for (const auto& ptr : reduce_input)
-		{
-			std::cout << "_____________\n";
-			for (const auto& s : *ptr)
-				std::cout << s << std::endl;
-		}
-*/		
+		if(!map_output[i]->empty())
+			CopyAllDuplicates(map_output[i]->front(), reduce_input[j], map_output );
 	}
 }
 
@@ -94,47 +76,45 @@ bool MapReduce(const std::string& file_name, const std::vector<std::pair<size_t,
 	size_t prefix_count, int rnum, MapFunc map_func, ReduceFunc reduce_func)
 {
 	std::vector<std::thread> threads;
-	std::mutex mutex;
 	std::vector<std::shared_ptr<std::vector<std::string>>> map_output;
 	map_output.reserve(ranges.size());
 	std::vector<std::shared_ptr<std::vector<std::string>>> reduce_input;
 	reduce_input.reserve(rnum);
 
+	// Map
+
 	for (const auto& pair : ranges)
 	{
 		map_output.emplace_back(std::make_shared<std::vector<std::string>>());
-		threads.push_back(std::thread(MapThread, ref(file_name), pair.first, pair.second, std::ref(mutex), std::ref(map_func),
+		threads.push_back(std::thread(MapThread, ref(file_name), pair.first, pair.second, std::ref(map_func),
 			prefix_count, std::ref(map_output.back())));
 	}
 
 	for (auto& thr : threads)
 		thr.join();
 
-	for (const auto& ptr : map_output)
-	{
-		std::cout << "_____________\n";
-		for (const auto& s : *ptr)
-			std::cout << s << std::endl;
-	}
+	// Shuffle
 
 	for(int i = 0; i < rnum; ++i)
 		reduce_input.emplace_back(std::make_shared<std::vector<std::string>>());
 
 	Shuffle(map_output, reduce_input);
 
-	std::cout << "REDUCE\n";
+	// Reduce
+
+	std::vector<std::future<bool>> futures;
 
 	for (auto& ptr : reduce_input)
 	{
-		std::cout << "_____________\n";
-		for (const auto& s : *ptr)
-			std::cout << s << std::endl;
-
-		threads.push_back(std::thread(ReduceThread, std::ref(ptr), std::ref(reduce_func)));
+		auto future = std::async(ReduceThread, std::ref(ptr), std::ref(reduce_func));
+		futures.push_back(std::move(future));
 	}
 
-	for (auto& thr : threads)
-		thr.join();
+	for (auto& future : futures)
+	{
+		if (future.get() == false)
+			return false;
+	}
 	
-	return false;
+	return true;
 }

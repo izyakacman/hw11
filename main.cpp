@@ -9,6 +9,8 @@
 
 using namespace std;
 
+constexpr int max_prefix_lenght = 100;
+
 int main(int argc, char* argv[])
 {
 	if (argc != 4)
@@ -21,13 +23,14 @@ int main(int argc, char* argv[])
 	int rnum = stoi(argv[3]);
 	string file_name = argv[1];
 
+	// Get ranges
+
 	ifstream ifs(file_name, std::ifstream::ate | std::ifstream::binary);
 
 	if (!ifs) return -1;
 
 	size_t file_size = ifs.tellg();
 
-	cout << "file size = " << file_size << endl;
 	ifs.seekg(0);
 
 	size_t block_size = file_size / mnum;
@@ -50,29 +53,38 @@ int main(int argc, char* argv[])
 		begin = end+1;
 	}
 
-	MapReduce(file_name, ranges, 2, rnum,
-		[](string s, size_t count)
-		{
-			return s.substr(0, count);
-		},
-		[](std::vector<std::string> strings)
-		{
-			std::string last_string;
-			for(size_t i = 0; i < strings.size(); ++i)
+	// Map-reduce
+
+	int prefix_count = 1;
+
+	for (; prefix_count < max_prefix_lenght; ++prefix_count)
+	{
+		bool res = MapReduce(file_name, ranges, prefix_count, rnum,
+			[](string s, size_t count) // map
 			{
-				if(i && strings[i] == last_string) 
-					return false;
+				return s.substr(0, count);
+			},
+			[](std::vector<std::string> strings) // reduce`
+			{
+				std::string last_string;
+				for (size_t i = 0; i < strings.size(); ++i)
+				{
+					if (i && strings[i] == last_string)
+						return false;
 
-				last_string = strings[i];
-			}
+					last_string = strings[i];
+				}
 
-			return true;
-		});
+				return true;
+			});
 
+		if (res) break;
+	}
 
-
-	//for (auto& thr : threads)
-	//	thr.join();
+	if (prefix_count == max_prefix_lenght)
+		std::cout << "Map-reduce error\n";
+	else
+		std::cout << "Minimal prefix lenght " << prefix_count << std::endl;
 
 	return 0;
 }
