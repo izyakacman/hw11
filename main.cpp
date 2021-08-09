@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	}
 
 	int mnum = stoi(argv[2]);
-	int rnum = stoi(argv[3]);
+	// int rnum = stoi(argv[3]);
 	string file_name = argv[1];
 
 	ifstream ifs(file_name, std::ifstream::ate | std::ifstream::binary);

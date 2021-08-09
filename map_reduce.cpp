@@ -20,7 +20,7 @@ void MapThread(const std::string& file_name, size_t begin, size_t end, std::mute
 
 	std::string line;
 
-	while (ifs && ifs.tellg() < end)
+	while (ifs && ifs.tellg() < static_cast<std::streamoff>(end))
 	{
 		ifs >> line;
 		//std::cout << line << std::endl;
