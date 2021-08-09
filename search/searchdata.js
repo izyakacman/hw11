@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: "_acdhilmprst",
   1: "cilmt",
   2: "acmprs",
-  3: "i",
+  3: "im",
   4: "mr",
   5: "_acdhps"
 };

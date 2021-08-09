@@ -8,5 +8,7 @@ var searchData=
   ['map_5freduce_2ehpp_25',['map_reduce.hpp',['../map__reduce_8hpp.html',1,'']]],
   ['mapfunc_26',['MapFunc',['../map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1',1,'map_reduce.hpp']]],
   ['mapreduce_27',['MapReduce',['../map__reduce_8cpp.html#af591b0b04df45a5b7f47616702d0b271',1,'MapReduce(const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rnum, MapFunc map_func, ReduceFunc reduce_func):&#160;map_reduce.cpp'],['../map__reduce_8hpp.html#aa8a183f5adbe4915946343a35cd35609',1,'MapReduce(const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rmun, MapFunc map_func, ReduceFunc reduce_func):&#160;map_reduce.cpp']]],
-  ['mapthread_28',['MapThread',['../map__reduce_8cpp.html#a91c5dcfb2d563507635ef66c0a802866',1,'map_reduce.cpp']]]
+  ['mapthread_28',['MapThread',['../map__reduce_8cpp.html#a870e881199827a3a817ec2bfef523eda',1,'map_reduce.cpp']]],
+  ['max_5fprefix_5flenght_29',['max_prefix_lenght',['../main_8cpp.html#aece95a74419c89a4f2c33cc84643f12d',1,'main.cpp']]],
+  ['mrvector_30',['MrVector',['../map__reduce_8cpp.html#ac2cf21a45c64b12582fe7bf4aceb1871',1,'map_reduce.cpp']]]
 ];
