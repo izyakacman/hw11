@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['project_48',['project',['../_c_make_lists_8txt.html#af3745f53167c434ae32575e7013f2b97',1,'CMakeLists.txt']]]
+  ['main_52',['main',['../_c_make_c_compiler_id_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCCompilerId.c'],['../_c_make_c_x_x_compiler_id_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;CMakeCXXCompilerId.cpp'],['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.cpp']]],
+  ['mapreduce_53',['MapReduce',['../map__reduce_8cpp.html#af591b0b04df45a5b7f47616702d0b271',1,'MapReduce(const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rnum, MapFunc map_func, ReduceFunc reduce_func):&#160;map_reduce.cpp'],['../map__reduce_8hpp.html#aa8a183f5adbe4915946343a35cd35609',1,'MapReduce(const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rmun, MapFunc map_func, ReduceFunc reduce_func):&#160;map_reduce.cpp']]],
+  ['mapthread_54',['MapThread',['../map__reduce_8cpp.html#a91c5dcfb2d563507635ef66c0a802866',1,'map_reduce.cpp']]]
 ];

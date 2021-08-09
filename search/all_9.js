@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['stringify_29',['STRINGIFY',['../_c_make_c_compiler_id_8c.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY():&#160;CMakeCCompilerId.c'],['../_c_make_c_x_x_compiler_id_8cpp.html#a43e1cad902b6477bec893cb6430bd6c8',1,'STRINGIFY():&#160;CMakeCXXCompilerId.cpp']]],
-  ['stringify_5fhelper_30',['STRINGIFY_HELPER',['../_c_make_c_compiler_id_8c.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER():&#160;CMakeCCompilerId.c'],['../_c_make_c_x_x_compiler_id_8cpp.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'STRINGIFY_HELPER():&#160;CMakeCXXCompilerId.cpp']]]
+  ['reducefunc_31',['ReduceFunc',['../map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea',1,'map_reduce.hpp']]],
+  ['reducethread_32',['ReduceThread',['../map__reduce_8cpp.html#a7f216326952ea162f0469d9c1ddca00e',1,'map_reduce.cpp']]]
 ];

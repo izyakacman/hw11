@@ -97,23 +97,39 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:abedbcb9982e7bb90438d7d435d3a6ce0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> = std::function&lt; std::string(std::string, size_t)&gt;</td></tr>
-<tr class="separator:abedbcb9982e7bb90438d7d435d3a6ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab927c5fb16de6ce7c97397e9f90413c1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> = std::function&lt; std::string(std::string, size_t)&gt;</td></tr>
+<tr class="separator:ab927c5fb16de6ce7c97397e9f90413c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d0e3d167021f5a06fd146b638a91eea"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> = std::function&lt; bool(std::vector&lt; std::string &gt;)&gt;</td></tr>
+<tr class="separator:a5d0e3d167021f5a06fd146b638a91eea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a7d4da7cfed93892c166bcd88b5b8ac06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8hpp.html#a7d4da7cfed93892c166bcd88b5b8ac06">MapReduce</a> (const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, <a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> func, size_t prefix_count)</td></tr>
-<tr class="separator:a7d4da7cfed93892c166bcd88b5b8ac06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a183f5adbe4915946343a35cd35609"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8hpp.html#aa8a183f5adbe4915946343a35cd35609">MapReduce</a> (const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rmun, <a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> map_func, <a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> reduce_func)</td></tr>
+<tr class="separator:aa8a183f5adbe4915946343a35cd35609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="abedbcb9982e7bb90438d7d435d3a6ce0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abedbcb9982e7bb90438d7d435d3a6ce0">&#9670;&nbsp;</a></span>MapReduceFunc</h2>
+<a id="ab927c5fb16de6ce7c97397e9f90413c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab927c5fb16de6ce7c97397e9f90413c1">&#9670;&nbsp;</a></span>MapFunc</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> =  std::function&lt;std::string(std::string, size_t)&gt;</td>
+          <td class="memname">using <a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> =  std::function&lt;std::string(std::string, size_t)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5d0e3d167021f5a06fd146b638a91eea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d0e3d167021f5a06fd146b638a91eea">&#9670;&nbsp;</a></span>ReduceFunc</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> =  std::function&lt;bool(std::vector&lt;std::string&gt;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -121,8 +137,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7d4da7cfed93892c166bcd88b5b8ac06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d4da7cfed93892c166bcd88b5b8ac06">&#9670;&nbsp;</a></span>MapReduce()</h2>
+<a id="aa8a183f5adbe4915946343a35cd35609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a183f5adbe4915946343a35cd35609">&#9670;&nbsp;</a></span>MapReduce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,14 +158,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a>&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>prefix_count</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>prefix_count</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rmun</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a>&#160;</td>
+          <td class="paramname"><em>map_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a>&#160;</td>
+          <td class="paramname"><em>reduce_func</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

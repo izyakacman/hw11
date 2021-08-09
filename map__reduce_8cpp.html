@@ -72,17 +72,19 @@ $(function() {
 <code>#include &lt;fstream&gt;</code><br />
 <code>#include &lt;thread&gt;</code><br />
 <code>#include &lt;mutex&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for map_reduce.cpp:</div>
 <div class="dyncontent">
 <div class="center"><img src="map__reduce_8cpp__incl.png" border="0" usemap="#amap__reduce_8cpp" alt=""/></div>
 <map name="amap__reduce_8cpp" id="amap__reduce_8cpp">
-<area shape="rect" title=" " alt="" coords="267,5,385,32"/>
+<area shape="rect" title=" " alt="" coords="310,5,427,32"/>
 <area shape="rect" href="map__reduce_8hpp.html" title=" " alt="" coords="55,80,173,107"/>
 <area shape="rect" title=" " alt="" coords="197,80,269,107"/>
 <area shape="rect" title=" " alt="" coords="293,80,359,107"/>
 <area shape="rect" title=" " alt="" coords="383,80,442,107"/>
 <area shape="rect" title=" " alt="" coords="467,80,524,107"/>
+<area shape="rect" title=" " alt="" coords="549,80,623,107"/>
 <area shape="rect" title=" " alt="" coords="5,155,60,181"/>
 <area shape="rect" title=" " alt="" coords="85,155,143,181"/>
 <area shape="rect" title=" " alt="" coords="168,155,247,181"/>
@@ -91,14 +93,74 @@ Include dependency graph for map_reduce.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a5fd8626f70af8fa4755b694b38844469"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a5fd8626f70af8fa4755b694b38844469">MapThread</a> (const std::string &amp;file_name, size_t begin, size_t end, std::mutex &amp;mt, <a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> &amp;func, size_t prefix_count, std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; &amp;output)</td></tr>
-<tr class="separator:a5fd8626f70af8fa4755b694b38844469"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d4da7cfed93892c166bcd88b5b8ac06"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a7d4da7cfed93892c166bcd88b5b8ac06">MapReduce</a> (const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, <a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> func, size_t prefix_count)</td></tr>
-<tr class="separator:a7d4da7cfed93892c166bcd88b5b8ac06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91c5dcfb2d563507635ef66c0a802866"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a91c5dcfb2d563507635ef66c0a802866">MapThread</a> (const std::string &amp;file_name, size_t begin, size_t end, std::mutex &amp;, <a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> &amp;func, size_t prefix_count, std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; &amp;output)</td></tr>
+<tr class="separator:a91c5dcfb2d563507635ef66c0a802866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f216326952ea162f0469d9c1ddca00e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a7f216326952ea162f0469d9c1ddca00e">ReduceThread</a> (std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; &amp;input, <a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> &amp;func)</td></tr>
+<tr class="separator:a7f216326952ea162f0469d9c1ddca00e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66c48eb1b4de49fd359efbc96cdbc500"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a66c48eb1b4de49fd359efbc96cdbc500">AllMapBuffersIsEmpty</a> (const std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;map_output)</td></tr>
+<tr class="separator:a66c48eb1b4de49fd359efbc96cdbc500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66315dc133702bae0482fae20d4dbb8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a66315dc133702bae0482fae20d4dbb8d">CopyAllDuplicates</a> (const std::string duplicate, std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; reduce_input, std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;map_output)</td></tr>
+<tr class="separator:a66315dc133702bae0482fae20d4dbb8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69823536deb4907484069a6b8b5edad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#a69823536deb4907484069a6b8b5edad1">Shuffle</a> (std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;map_output, std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;reduce_input)</td></tr>
+<tr class="separator:a69823536deb4907484069a6b8b5edad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af591b0b04df45a5b7f47616702d0b271"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="map__reduce_8cpp.html#af591b0b04df45a5b7f47616702d0b271">MapReduce</a> (const std::string &amp;file_name, const std::vector&lt; std::pair&lt; size_t, size_t &gt;&gt; ranges, size_t prefix_count, int rnum, <a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> map_func, <a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> reduce_func)</td></tr>
+<tr class="separator:af591b0b04df45a5b7f47616702d0b271"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a7d4da7cfed93892c166bcd88b5b8ac06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d4da7cfed93892c166bcd88b5b8ac06">&#9670;&nbsp;</a></span>MapReduce()</h2>
+<a id="a66c48eb1b4de49fd359efbc96cdbc500"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66c48eb1b4de49fd359efbc96cdbc500">&#9670;&nbsp;</a></span>AllMapBuffersIsEmpty()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool AllMapBuffersIsEmpty </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>map_output</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a66315dc133702bae0482fae20d4dbb8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66315dc133702bae0482fae20d4dbb8d">&#9670;&nbsp;</a></span>CopyAllDuplicates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CopyAllDuplicates </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>duplicate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&#160;</td>
+          <td class="paramname"><em>reduce_input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>map_output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af591b0b04df45a5b7f47616702d0b271"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af591b0b04df45a5b7f47616702d0b271">&#9670;&nbsp;</a></span>MapReduce()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -118,14 +180,26 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a>&#160;</td>
-          <td class="paramname"><em>func</em>, </td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>prefix_count</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">size_t&#160;</td>
-          <td class="paramname"><em>prefix_count</em>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>rnum</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a>&#160;</td>
+          <td class="paramname"><em>map_func</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a>&#160;</td>
+          <td class="paramname"><em>reduce_func</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -137,8 +211,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5fd8626f70af8fa4755b694b38844469"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fd8626f70af8fa4755b694b38844469">&#9670;&nbsp;</a></span>MapThread()</h2>
+<a id="a91c5dcfb2d563507635ef66c0a802866"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91c5dcfb2d563507635ef66c0a802866">&#9670;&nbsp;</a></span>MapThread()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -165,12 +239,12 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::mutex &amp;&#160;</td>
-          <td class="paramname"><em>mt</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#abedbcb9982e7bb90438d7d435d3a6ce0">MapReduceFunc</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#ab927c5fb16de6ce7c97397e9f90413c1">MapFunc</a> &amp;&#160;</td>
           <td class="paramname"><em>func</em>, </td>
         </tr>
         <tr>
@@ -184,6 +258,62 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; &amp;&#160;</td>
           <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f216326952ea162f0469d9c1ddca00e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f216326952ea162f0469d9c1ddca00e">&#9670;&nbsp;</a></span>ReduceThread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ReduceThread </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="map__reduce_8hpp.html#a5d0e3d167021f5a06fd146b638a91eea">ReduceFunc</a> &amp;&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a69823536deb4907484069a6b8b5edad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69823536deb4907484069a6b8b5edad1">&#9670;&nbsp;</a></span>Shuffle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Shuffle </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>map_output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::vector&lt; std::shared_ptr&lt; std::vector&lt; std::string &gt;&gt;&gt; &amp;&#160;</td>
+          <td class="paramname"><em>reduce_input</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
