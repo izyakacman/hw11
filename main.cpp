@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 	}
 
 	int mnum = stoi(argv[2]);
-	// int rnum = stoi(argv[3]);
+	int rnum = stoi(argv[3]);
 	string file_name = argv[1];
 
 	ifstream ifs(file_name, std::ifstream::ate | std::ifstream::binary);
@@ -30,10 +30,9 @@ int main(int argc, char* argv[])
 	cout << "file size = " << file_size << endl;
 	ifs.seekg(0);
 
-	//vector<thread> threads;
 	size_t block_size = file_size / mnum;
 	size_t begin = 0;
-	//mutex mt;
+	size_t end = 0;
 	vector<pair<size_t, size_t>> ranges;
 
 	for (int i = 0; i < mnum; ++i)
@@ -41,18 +40,34 @@ int main(int argc, char* argv[])
 		ifs.seekg(begin + block_size);
 		string line;
 		ifs >> line;
-		size_t end = ifs.tellg();
+		end = ifs.tellg();
+		
+		if(end == static_cast<size_t>(-1))
+			end = file_size - 1;
 
 		ranges.push_back({begin, end});
 
-		//threads.push_back( thread(MapThread, ref(file_name), begin, end, ref(mt)) );
 		begin = end+1;
 	}
 
-	MapReduce(file_name, ranges, [](string s, size_t count) 
+	MapReduce(file_name, ranges, 2, rnum,
+		[](string s, size_t count)
 		{
 			return s.substr(0, count);
-		}, 1);
+		},
+		[](std::vector<std::string> strings)
+		{
+			std::string last_string;
+			for(size_t i = 0; i < strings.size(); ++i)
+			{
+				if(i && strings[i] == last_string) 
+					return false;
+
+				last_string = strings[i];
+			}
+
+			return true;
+		});
 
 
 
