@@ -10,14 +10,10 @@ if (UNIX)
     find_package (Threads)
 endif()
 
-find_package(Boost COMPONENTS system  REQUIRED)
-include_directories(${Boost_INCLUDE_DIR})
-
 # Добавьте источник в исполняемый файл этого проекта.
-add_executable (mapreduce "main.cpp"    "map_reduce.cpp")
+add_executable (mapreduce "main.cpp" "map_reduce.cpp")
 
 target_link_libraries(mapreduce
-        ${Boost_LIBRARIES}
         ${CMAKE_THREAD_LIBS_INIT}
         ) 
 
